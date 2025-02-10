@@ -39,9 +39,11 @@ def _parse_array_input(prompt):
     while True:
         try:
             input_str = input(prompt)
-            return np.array([float(x.strip()) for x in input_str.split(',')])
+            # Split rows by ; and elements by ,
+            rows = [row.split(',') for row in input_str.split(';')]
+            return np.array([[float(x.strip()) for x in row] for row in rows])
         except ValueError:
-            print("Invalid input. Please enter comma-separated numbers.")
+            print("Invalid input. Use format: 1.1,2.2;3.3,4.4")
 
 
 if __name__ == "__main__":
